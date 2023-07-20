@@ -38,5 +38,5 @@ public class Car {
     private java.sql.Date dateTime;
 
     @Getter @Setter @Column(name = "pay")
-    private Long pay;
+    private Float pay;
 }

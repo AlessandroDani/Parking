@@ -8,7 +8,6 @@ import java.util.List;
 public interface CarDao {
     void insertCar(Car car);
     void deleteCar(long id);
-
     List<Car> getCars();
 
 }

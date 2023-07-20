@@ -2,23 +2,17 @@
 $(document).ready(function () {
 });
 
-async function registrar() {
+async function registerCar() {
     let datos = {};
-    datos.nombre = document.getElementById('txtNombre').value;
-    datos.apellido = document.getElementById('txtApellido').value;
-    datos.edad = document.getElementById('txtEdad').value;
-    datos.cedula = document.getElementById('txtCedula').value;
-    datos.habitacion = document.getElementById('txtHabitacion').value;
-    datos.contraseña = document.getElementById('txtContraseña').value;
+    datos.model = document.getElementById('txtModel').value;
+    datos.brand = document.getElementById('txtBrand').value;
+    datos.licensePlate = document.getElementById('txtLicensePlate').value;
+    datos.property = document.getElementById('txtProperty').value;
+    datos.origin = document.getElementById('txtOrigin').value;
+    datos.dateTime = document.getElementById('txtDate').value;
+    datos.pay = document.getElementById('txtPay').value;
 
-    let contraseñaRepetida = document.getElementById('txtRepetirContraseña').value;
-
-    if(contraseñaRepetida != datos.contraseña){
-        alert('Tiene dos contraseñas distintas');
-        return;
-    }
-
-    const request = await fetch('/api/huesped', {
+    const request = await fetch('/api/car', {
         method: 'POST',
         headers: {
             'Accept': 'application/json',

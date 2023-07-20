@@ -1,0 +1,41 @@
+.btn {
+    /* Estilo del botón */
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Estilos del modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-contenido {
+
+    background-color: #fefefe;
+    margin: 2% auto;
+    padding: 10px;
+    border: 1px solid #888;
+    width: 50%;
+    height: 90%;
+    max-width: 80%;
+}
+
+.cerrar {
+    float: right;
+    cursor: pointer;
+    margin-right: -50px;
+}

@@ -19,7 +19,7 @@ public class CarServices implements CarDao{
 
     @Override
     public void insertCar(Car car) {
-
+        entityManager.merge(car);
     }
 
     @Override

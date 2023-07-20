@@ -22,7 +22,12 @@ public class ControllerParking {
     }
 
     @RequestMapping(value = "/api/car/{id}", method = RequestMethod.DELETE)
-    public void deleteList(@PathVariable long id){
+    public void deleteCar(@PathVariable long id){
         carDao.deleteCar(id);
+    }
+
+    @RequestMapping(value = "/api/car", method = RequestMethod.POST)
+    public void insertCar(@RequestBody Car car){
+        carDao.insertCar(car);
     }
 }

@@ -19,9 +19,11 @@
 
     <!-- Custom styles for this template -->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <!-- <link href="vendor/button/button.css" rel="stylesheet">; -->
 
     <!-- Custom styles for this page -->
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="vendor/button/button.css" rel="stylesheet">
 
 </head>
 
@@ -115,7 +117,70 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Tabla de carros estacionados</h6>
+                            <h5 class="m-0 font-weight-bold text-primary">Tabla de carros estacionados</h5>
+                            <button class="btn btn-success btn-icon-split" id="btnAbrirModal">Agregar nuevo carro</button>
+                            <!--<a href="#" class="btn btn-success btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-check"></i>
+                                        </span>
+                                <span class="text">Agregar nuevo carro</span>
+                            </a>-->
+                            <div class="modal" id="miModal">
+                                <div class="modal-contenido">
+                                    <div class="row justify-content-center">
+                                        <div class="col-xl-10 col-lg-12 col-md-9">
+                                                <div class="card-body p-0">
+                                                    <!-- Nested Row within Card Body -->
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <span class="cerrar" id="btnCerrarModal">&times;</span>
+                                                            <div class="p-5">
+                                                                <div class="text-center">
+                                                                    <h1 class="h4 text-gray-900 mb-4">Ingrese los datos</h1>
+                                                                </div>
+                                                                <form class="user">
+                                                                    <div class="form-group">
+                                                                        <input type="text" class="form-control form-control-user"
+                                                                               id="txtModel" placeholder="Modelo" >
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <input type="text" class="form-control form-control-user"
+                                                                               id="txtBrand" placeholder="Marca">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <input type="text" class="form-control form-control-user"
+                                                                               id="txtLicensePlate" placeholder="Placa">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <input type="text" class="form-control form-control-user"
+                                                                               id="txtProperty" placeholder="Dueño">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <input type="text" class="form-control form-control-user"
+                                                                               id="txtOrigin" placeholder="Procedencia">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <input type="date" class="form-control form-control-user"
+                                                                               id="txtDate" placeholder="Fecha de Ingreso">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <input type="number" class="form-control form-control-user"
+                                                                               id="txtPay" placeholder="Pago">
+                                                                    </div>
+                                                                    <a onclick="registerCar()" href="index.html" class="btn btn-primary btn-user btn-block">
+                                                                        Guardar
+                                                                    </a>
+                                                                </form>
+                                                            </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -190,6 +255,21 @@
 
     <!-- Page level custom scripts -->
     <script src="js/parking.js"></script>
+    <script>
+        const btnAbrirModal = document.getElementById('btnAbrirModal');
+        const btnCerrarModal = document.getElementById('btnCerrarModal');
+        const miModal = document.getElementById('miModal');
+
+        btnAbrirModal.addEventListener('click', () => {
+            miModal.style.display = 'block';
+        });
+
+        btnCerrarModal.addEventListener('click', () => {
+            miModal.style.display = 'none';
+        });
+    </script>
+
+    <script src="js/register.js"></script>
 
 </body>
 
