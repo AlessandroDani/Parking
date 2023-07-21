@@ -34,4 +34,10 @@ public class CarServices implements CarDao{
         String query = "FROM Car";
         return entityManager.createQuery(query).getResultList();
     }
+
+    @Override
+    public Car getCar(long id) {
+        Car car = entityManager.find(Car.class, id);
+        return car;
+    }
 }
