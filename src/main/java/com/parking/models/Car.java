@@ -7,38 +7,36 @@ import java.util.Date;
 
 @Entity
 @Table(name = "carros")
-@ToString
+@Data
 @NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode
 public class Car {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter @Setter @Column(name = "id")
+    @Column(name = "id")
     private Long id;
 
-    @Getter @Setter @Column(name = "model")
+    @Column(name = "model")
     private String model;
 
-    @Getter @Setter @Column(name = "brand")
+    @Column(name = "brand")
     private String brand;
 
-    @Getter @Setter @Column(name = "license_plate")
+    @Column(name = "license_plate")
     private String licensePlate;
 
-    @Getter @Setter @Column(name = "property")
+    @Column(name = "property")
     private String property;
 
-    @Getter @Setter @Column(name = "origin")
+    @Column(name = "origin")
     private String origin;
 
-    @Getter @Setter @Column(name = "date_time")
+    @Column(name = "date_time")
     private java.sql.Date dateTime;
 
-    @Getter @Setter @Column(name = "pay")
+    @Column(name = "pay")
     private Float pay;
 
-    @Getter @Setter @Column(name = "credit")
+    @Column(name = "credit")
     private Float credit;
 }
