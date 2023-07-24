@@ -18,9 +18,10 @@ async function loadCars() {
 
     let listadoHTML = '';
     for (let car of carList) {
-        let botonEliminar = '<a href="#" onClick ="deleteCar('+car.id+')" class="btn btn-danger btclassNameNamecle btn-sm"><i class="fas fa-trash"></i> </a>';
-        let usuario = '<tr><td>'+car.model+'</td><td>'+car.brand+'</td><td>'+car.licensePlate+'</td><td>'+car.property+'</td><td>' +car.origin + '</td><td>' +car.dateTime + '</td><td>' +car.pay + '</td><td>' +botonEliminar + '</td></tr>'
-        listadoHTML += usuario;
+        let deleteButton = '<a href="#" onClick ="deleteCar('+car.id+')" class="btn btn-danger btclassNameNamecle btn-sm"><i class="fas fa-trash"></i> </a>';
+        //let updateButton = '<a href="#" onclick="updateCar('+car.id+')" class="btn btn-info btn-circle"><i class="fas fa-info-circle"></i></a>';
+        let user = '<tr><td>'+car.model+'</td><td>'+car.brand+'</td><td>'+car.licensePlate+'</td><td>'+car.property+'</td><td>' +car.origin + '</td><td>' +car.dateTime + '</td><td>' +car.pay + '</td><td>' +car.credit + '</td><td>' + deleteButton + /*updateButton + */'</td></tr>'
+        listadoHTML += user;
     }
 
     document.querySelector('#parking tbody').outerHTML  = listadoHTML ;
@@ -54,18 +55,25 @@ async function deleteCar(id){
         reverseButtons: true
     }).then(async (result) => {
         if (result.isConfirmed) {
-            let fechaIngresoCarro = new Date(carInfo.dateTime)
-            fechaIngresoCarro.setHours(24)
-            let fechaActual = new Date()
 
-            const diferenciaEnMilisegundos = fechaActual - fechaIngresoCarro;
-            const dias = Math.floor(diferenciaEnMilisegundos / (1000 * 60 * 60 * 24));
+            let dateCar = new Date(carInfo.dateTime)
+            dateCar.setHours(24)
+            let actualDate = new Date()
 
-            const precio = (carInfo.pay*dias).toLocaleString('es-ES');
+            const difference = actualDate - dateCar;
+
+            let days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            days = (days===0)?1: days;
+
+            const price = ((carInfo.pay*days)-carInfo.credit).toLocaleString('es-ES');
+            const stringDay = (days===1)? ' dia':' dias';
+
+            const credit = (carInfo.credit === 0)? ' abonó ' + carInfo.credit: '';
+
 
             await swalWithBootstrapButtons.fire(
                 'Retirado',
-                'El carro ' + carInfo.brand + ' ' + carInfo.model +' estuvo  ' + dias +' dias y debe ' + precio + '$'
+                'El carro ' + carInfo.brand + ' ' + carInfo.model +' estuvo  ' + days + stringDay + credit + '  y debe ' + price + '$'
             )
             const request = fetch('/api/car/' + id, {
                 method: 'DELETE',

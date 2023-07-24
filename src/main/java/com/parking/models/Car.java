@@ -7,7 +7,6 @@ import java.util.Date;
 
 @Entity
 @Table(name = "carros")
-
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
@@ -39,4 +38,7 @@ public class Car {
 
     @Getter @Setter @Column(name = "pay")
     private Float pay;
+
+    @Getter @Setter @Column(name = "credit")
+    private Float credit;
 }

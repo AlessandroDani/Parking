@@ -161,13 +161,31 @@
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <input type="date" class="form-control form-control-user"
-                                                                               id="txtDate" placeholder="Fecha de Ingreso">
+                                                                               id="txtDate">
+                                                                        <script>
+                                                                            // Función para obtener la fecha actual en formato YYYY-MM-DD
+                                                                            function obtenerFechaActual() {
+                                                                                const hoy = new Date();
+                                                                                const year = hoy.getFullYear();
+                                                                                const month = String(hoy.getMonth() + 1).padStart(2, '0');
+                                                                                const day = String(hoy.getDate()).padStart(2, '0');
+
+                                                                                return `${year}-${month}-${day}`;
+                                                                            }
+
+                                                                            // Establecer la fecha de hoy en el input
+                                                                            document.getElementById('txtDate').value = obtenerFechaActual();
+                                                                        </script>
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <input type="number" class="form-control form-control-user"
-                                                                               id="txtPay" placeholder="Pago">
+                                                                               id="txtPay" placeholder="Precio">
                                                                     </div>
-                                                                    <a onclick="registerCar()" href="index.html" class="btn btn-primary btn-user btn-block">
+                                                                    <div class="form-group">
+                                                                        <input type="number" class="form-control form-control-user"
+                                                                               id="txtCredit" placeholder="Abono" value="0">
+                                                                    </div>
+                                                                    <a onclick="registerCar()"  href="#" class="btn btn-primary btn-user btn-block">
                                                                         Guardar
                                                                     </a>
                                                                 </form>
@@ -194,6 +212,7 @@
                                             <th>Procedencia</th>
                                             <th>Fecha de Ingreso</th>
                                             <th>Pago</th>
+                                            <th>Abono</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -270,10 +289,10 @@
         });
     </script>
 
-    <script src="js/register.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/register.js"></script>
     <script src="js/parking.js"></script>
-    <script src="js/sweetAlert.js"></script>
 
 </body>
 
