@@ -10,20 +10,19 @@ async function registerCar() {
     dates.property = document.getElementById('txtProperty').value;
     dates.origin = document.getElementById('txtOrigin').value;
 
-    //When saved dateTime in modal, its one day after, for that, the code set 24 hours
-    dates.dateTime = new Date(document.getElementById('txtDate').value).setHours(24);
+    //When dateTime is saved in modal, its one day after, for that, the code set 24 hours
+    dates.dateTime = new Date(document.getElementById('txtDate').value).setHours(24)
+    dates.pay = cleanData('txtPay');
+    dates.credit = cleanData('txtCredit');
 
-    dates.pay = document.getElementById('txtPay').value;
-    dates.credit = document.getElementById('txtCredit').value;
-
-        const request = await fetch('/api/car', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(dates)
-        })
+    const request = await fetch('/api/car', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dates)
+    })
 
     await Swal.fire({
         position: 'center',
@@ -34,4 +33,9 @@ async function registerCar() {
         closeOnClickOutside: false
     })
     location.reload()
+}
+
+function cleanData(data) {
+    let clean = document.getElementById(data).value;
+    return parseFloat(clean.replace(/[,.]/g, ''))
 }
