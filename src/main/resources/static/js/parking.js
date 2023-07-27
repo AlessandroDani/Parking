@@ -76,18 +76,17 @@ async function deleteCar(id){
                 'Retirado',
                 'El carro ' + carInfo.brand + ' ' + carInfo.model +' estuvo  ' + days + stringDay + credit + '  y debe ' + price + '$'
             )
-            const request = fetch('/api/car/' + id, {
-                method: 'DELETE',
+            carInfo.active = false;
+            await fetch('/api/car/' + id, {
+                method: 'PUT',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
+                body: JSON.stringify(carInfo)
             });
             location.reload();
-        } else if (
-            /* Read more about handling dismissals below */
-            result.dismiss === Swal.DismissReason.cancel
-        ) {
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
             swalWithBootstrapButtons.fire(
                 'Cancelado',
             )

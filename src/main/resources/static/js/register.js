@@ -14,6 +14,7 @@ async function registerCar() {
     dates.dateTime = new Date(document.getElementById('txtDate').value).setHours(24)
     dates.pay = cleanData('txtPay');
     dates.credit = cleanData('txtCredit');
+    dates.active = true;
 
     const request = await fetch('/api/car', {
         method: 'POST',

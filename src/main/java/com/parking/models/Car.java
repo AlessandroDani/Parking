@@ -38,4 +38,7 @@ public class Car {
 
     @Column(name = "credit")
     private Float credit;
+
+    @Column(name = "active")
+    private boolean active;
 }

@@ -6,7 +6,6 @@ import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository //Acceder al repositorio de la base de datos
@@ -31,13 +30,18 @@ public class CarServices implements CarDao{
     @Override
     @Transactional
     public List<Car> getCars() {
-        String query = "FROM Car";
+        String query = "FROM Car WHERE active  = true";
         return entityManager.createQuery(query).getResultList();
     }
 
     @Override
     public Car getCar(long id) {
-        Car car = entityManager.find(Car.class, id);
-        return car;
+        return entityManager.find(Car.class, id);
+    }
+
+    @Override
+    public void updateCar(Long id) {
+        Car carExist = entityManager.find(Car.class, id);
+        carExist.setActive(false);
     }
 }
