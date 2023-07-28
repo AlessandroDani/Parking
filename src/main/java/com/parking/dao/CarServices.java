@@ -35,13 +35,13 @@ public class CarServices implements CarDao{
     }
 
     @Override
-    public Car getCar(long id) {
-        return entityManager.find(Car.class, id);
+    public Car getCar(String licensePlate) {
+        return entityManager.find(Car.class, licensePlate);
     }
 
     @Override
-    public void updateCar(Long id) {
-        Car carExist = entityManager.find(Car.class, id);
+    public void updateCar(String licensePlate) {
+        Car carExist = entityManager.find(Car.class, licensePlate);
         carExist.setActive(false);
     }
 }

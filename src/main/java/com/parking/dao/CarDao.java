@@ -9,6 +9,6 @@ public interface CarDao {
     void insertCar(Car car);
     void deleteCar(long id);
     List<Car> getCars();
-    Car getCar(long id);
-    void updateCar(Long id);
+    Car getCar(String licensePlate);
+    void updateCar(String licensePlate);
 }

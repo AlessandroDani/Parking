@@ -25,6 +25,7 @@
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link href="vendor/button/button.css" rel="stylesheet">
 
+
 </head>
 
 <body id="page-top">
@@ -186,6 +187,18 @@
                                                                     <a onclick="registerCar()"  href="#" class="btn btn-primary btn-user btn-block">
                                                                         Guardar
                                                                     </a>
+                                                                    <script>
+                                                                        const element = document.getElementById('txtLicensePlate');
+                                                                        element.addEventListener('blur', async () => {
+                                                                            const carInfo = await getCar(element.value);
+                                                                            if (carInfo != null) {
+                                                                                document.getElementById('txtModel').value = carInfo.model;
+                                                                                document.getElementById('txtBrand').value = carInfo.brand;
+                                                                                document.getElementById('txtProperty').value = carInfo.property;
+                                                                                document.getElementById('txtOrigin').value = carInfo.origin;
+                                                                            }
+                                                                        })
+                                                                    </script>
                                                                 </form>
                                                             </div>
                                                     </div>
@@ -286,12 +299,9 @@
             miModal.style.display = 'none';
         });
     </script>
-
-
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="js/register.js"></script>
     <script src="js/parking.js"></script>
-
 </body>
 
 </html>

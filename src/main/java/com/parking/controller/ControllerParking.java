@@ -21,24 +21,27 @@ public class ControllerParking {
         return carDao.getCars();
     }
 
+    /*
     @RequestMapping(value = "/api/car/{id}", method = RequestMethod.DELETE)
     public void deleteCar(@PathVariable long id){
         carDao.deleteCar(id);
     }
 
-    @RequestMapping(value = "/api/car", method = RequestMethod.POST)
+     */
+
+    @PostMapping(value = "/api/car")
     public void insertCar(@RequestBody Car car){
         carDao.insertCar(car);
     }
 
-    @RequestMapping(value = "/api/car/{id}", method = RequestMethod.PUT)
-    public void updateCar(@PathVariable Long id){
-        carDao.updateCar(id);
+
+    @PutMapping(value = "/api/car/{licensePlate}")
+    public void updateCar(@PathVariable String licensePlate){
+        carDao.updateCar(licensePlate);
     }
 
-
-    @RequestMapping(value = "/api/car/{id}" , method = RequestMethod.GET)
-    public Car getCar(@PathVariable long id){
-        return carDao.getCar(id);
+    @GetMapping(value = "/api/car/{licensePlate}")
+    public Car getCar(@PathVariable String licensePlate){
+        return carDao.getCar(licensePlate);
     }
 }
