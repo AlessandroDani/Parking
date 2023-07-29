@@ -11,10 +11,11 @@ async function registerCar() {
     dates.origin = document.getElementById('txtOrigin').value;
 
     //When dateTime is saved in modal, its one day after, for that, the code set 24 hours
-    dates.dateTime = new Date(document.getElementById('txtDate').value).setHours(24)
+    dates.dateTime = new Date(document.getElementById('txtDate').value).setHours(24);
     dates.pay = cleanData('txtPay');
     dates.credit = cleanData('txtCredit');
     dates.active = true;
+    dates.room = document.getElementById('txtRoom').value;
 
     const request = await fetch('/api/car', {
         method: 'POST',
@@ -37,6 +38,9 @@ async function registerCar() {
 }
 
 function cleanData(data) {
+    if(data === null){
+        return 0;
+    }
     let clean = document.getElementById(data).value;
     return parseFloat(clean.replace(/[,.]/g, ''))
 }

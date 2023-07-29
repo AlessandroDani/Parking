@@ -36,7 +36,12 @@ public class CarServices implements CarDao{
 
     @Override
     public Car getCar(String licensePlate) {
-        return entityManager.find(Car.class, licensePlate);
+        try{
+            return entityManager.find(Car.class, licensePlate);
+        }catch (Exception e){
+            return null;
+        }
+
     }
 
     @Override

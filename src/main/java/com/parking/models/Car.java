@@ -45,4 +45,7 @@ public class Car {
 
     @Column(name = "active")
     private boolean active;
+
+    @Column(name = "room")
+    private Integer room;
 }

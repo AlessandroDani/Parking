@@ -14,17 +14,22 @@ async function loadCars() {
         },
     });
     const carList = await request.json();
-    let option = {useGrouping: true };
+    let option = {useGrouping: true};
 
     let carsData = '';
     for (let car of carList) {
+        if (car.room == null) {
+            car.room = '-';
+        }
+        car.pay = (car.pay == null) ? 0 : car.pay;
+        car.credit = (car.credit == null) ? 0 : car.credit;
         let retireButton = '<a href="#" onClick="retireCar(\'' + car.licensePlate + '\')" class="btn btn-danger btclassNameNamecle btn-sm"><i class="fas fa-trash"></i> </a>';
-        //let updateButton = '<a href="#" onclick="updateCar('+car.id+')" class="btn btn-info btn-circle"><i class="fas fa-info-circle"></i></a>';
-        let carInformation = '<tr><td>'+car.model+'</td><td>'+car.brand+'</td><td>'+car.licensePlate+'</td><td>'+car.property+'</td><td>' +car.origin + '</td><td>' +car.dateTime + '</td><td>' +car.pay.toLocaleString('es-ES', option) + '</td><td>' +car.credit.toLocaleString('es-ES', option) + '</td><td>' + retireButton + /*updateButton + */'</td></tr>'
+        let updateButton = '<a href="#" onClick="updateCar(\'' + car.licensePlate + '\')" class="btn btn-info btn-circle"><i class="fas fa-info-circle"></i></a>';
+        let carInformation = '<tr><td>' + car.model + '</td><td>' + car.brand + '</td><td>' + car.licensePlate + '</td><td>' + car.property + '</td><td>' + car.origin + '</td><td>' + car.dateTime + '</td><td>' + car.pay.toLocaleString('es-ES', option) + '</td><td>' + car.credit.toLocaleString('es-ES', option) + '</td><td>' + car.room + '</td><td>' + retireButton /*+updateButton*/ + '</td></tr>'
         carsData += carInformation;
     }
 
-    document.querySelector('#parking tbody').outerHTML  = carsData ;
+    document.querySelector('#parking tbody').outerHTML = carsData;
 }
 
 async function retireCar(licensePlate) {
@@ -47,6 +52,9 @@ async function retireCar(licensePlate) {
         reverseButtons: true
     }).then(async (result) => {
         if (result.isConfirmed) {
+            carInfo.pay = (carInfo.pay == null) ? 0 : carInfo.pay;
+            carInfo.credit = (carInfo.credit == null) ? 0 : carInfo.credit;
+
             let option = {useGrouping: true};
 
             let dateCar = new Date(carInfo.dateTime)
@@ -69,15 +77,7 @@ async function retireCar(licensePlate) {
                 'El carro ' + carInfo.brand + ' ' + carInfo.model + ' estuvo  ' + days + stringDay + credit + '  y debe ' + price + '$'
             )
             carInfo.active = false;
-            await fetch('/api/car/' + licensePlate, {
-                method: 'PUT',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(carInfo)
-            });
-            location.reload();
+            await updateCar(carInfo);
         } else if (result.dismiss === Swal.DismissReason.cancel) {
             swalWithBootstrapButtons.fire(
                 'Cancelado',
@@ -87,8 +87,9 @@ async function retireCar(licensePlate) {
     })
 }
 
-    async function getCar(licensePlate){
-        const response = await fetch('/api/car/' + licensePlate, {
+async function getCar(licensePlate) {
+    try {
+        const response = await fetch('/api/car/' + encodeURIComponent(licensePlate), {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -96,4 +97,23 @@ async function retireCar(licensePlate) {
             },
         });
         return await response.json();
+    } catch (e) {
+        return null;
+    }
+}
+
+async function updateCar(carInfo) {
+    try {
+        await fetch('/api/car/' + carInfo.licensePlate, {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(carInfo)
+        });
+        location.reload();
+    } catch (e) {
+        return null;
+    }
 }

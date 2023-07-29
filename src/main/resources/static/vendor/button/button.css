@@ -24,18 +24,22 @@
 }
 
 .modal-contenido {
-
+    position: relative;
     background-color: #fefefe;
-    margin: 2% auto;
+    margin: 10px auto;
     padding: 10px;
     border: 1px solid #888;
-    width: 50%;
-    height: 95%;
-    max-width: 80%;
+    width: 55%;
+    height: 93%;
 }
 
 .cerrar {
-    float: right;
+    position: fixed;
+    top: 10px;
+    right: 400px;
+    padding: 5px;
     cursor: pointer;
-    margin-right: -50px;
+    border: none;
+    /*margin-right: -50px;
+     */
 }

@@ -134,8 +134,8 @@
                                                     <!-- Nested Row within Card Body -->
                                                     <div class="row">
                                                         <div class="col-lg-6">
-                                                            <span class="cerrar" id="btnCerrarModal">&times;</span>
                                                             <div class="p-5">
+                                                                <span class="cerrar" id="btnCerrarModal">x</span>
                                                                 <div class="text-center">
                                                                     <h1 class="h4 text-gray-900 mb-4">Ingrese los datos</h1>
                                                                 </div>
@@ -177,10 +177,11 @@
                                                                         </script>
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <input type="text"  class="form-control form-control-user" id="txtPay" placeholder="Precio">
-
+                                                                        <input type="number" class="form-control form-control-user" onkeyup="checkDisable()"
+                                                                               id="txtRoom" placeholder="Si está en una habitación, indique el número">
                                                                     </div>
                                                                     <div class="form-group">
+                                                                        <input type="text"  class="form-control form-control-user" id="txtPay" placeholder="Precio">
                                                                         <input type="text" class="form-control form-control-user"
                                                                                id="txtCredit" placeholder="Abono">
                                                                     </div>
@@ -190,15 +191,22 @@
                                                                     <script>
                                                                         const element = document.getElementById('txtLicensePlate');
                                                                         element.addEventListener('blur', async () => {
-                                                                            const carInfo = await getCar(element.value);
-                                                                            if (carInfo != null) {
+                                                                            const licensePlate = encodeURIComponent(element.value);
+                                                                            try {
+                                                                                const carInfo = await getCar(licensePlate);
                                                                                 document.getElementById('txtModel').value = carInfo.model;
                                                                                 document.getElementById('txtBrand').value = carInfo.brand;
                                                                                 document.getElementById('txtProperty').value = carInfo.property;
                                                                                 document.getElementById('txtOrigin').value = carInfo.origin;
+                                                                            }catch(e) {
+                                                                                document.getElementById('txtModel').value = '';
+                                                                                document.getElementById('txtBrand').value = '';
+                                                                                document.getElementById('txtProperty').value = '';
+                                                                                document.getElementById('txtOrigin').value = '';
                                                                             }
                                                                         })
                                                                     </script>
+
                                                                 </form>
                                                             </div>
                                                     </div>
@@ -224,6 +232,7 @@
                                             <th>Fecha de Ingreso</th>
                                             <th>Precio</th>
                                             <th>Abono</th>
+                                            <th>Habitación</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -299,6 +308,20 @@
             miModal.style.display = 'none';
         });
     </script>
+
+    <script>
+        function checkDisable() {
+            let roomAvailable = document.getElementById('txtRoom').value;
+            if (roomAvailable.trim().length > 2) {
+                document.getElementById('txtPay').disabled = true;
+                document.getElementById('txtCredit').disabled = true;
+            } else {
+                document.getElementById('txtPay').disabled = false;
+                document.getElementById('txtCredit').disabled = false;
+            }
+        }
+    </script>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="js/register.js"></script>
     <script src="js/parking.js"></script>
