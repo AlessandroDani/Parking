@@ -4,11 +4,11 @@ $(document).ready(function () {
 
 async function registerCar() {
     let dates = {};
-    dates.model = document.getElementById('txtModel').value;
-    dates.brand = document.getElementById('txtBrand').value;
     dates.licensePlate = document.getElementById('txtLicensePlate').value;
-    dates.property = document.getElementById('txtProperty').value;
-    dates.origin = document.getElementById('txtOrigin').value;
+    dates.model = formatFirstLetterToUpperCase(document.getElementById('txtModel').value);
+    dates.brand = formatFirstLetterToUpperCase(document.getElementById('txtBrand').value);
+    dates.property = formatFirstLetterToUpperCase(document.getElementById('txtProperty').value);
+    dates.origin = formatFirstLetterToUpperCase(document.getElementById('txtOrigin').value);
 
     //When dateTime is saved in modal, its one day after, for that, the code set 24 hours
     dates.dateTime = new Date(document.getElementById('txtDate').value).setHours(24);
@@ -43,4 +43,11 @@ function cleanData(data) {
     }
     let clean = document.getElementById(data).value;
     return parseFloat(clean.replace(/[,.]/g, ''))
+}
+
+function formatFirstLetterToUpperCase(value) {
+    if (value) {
+        const formattedValue = value.charAt(0).toUpperCase() + value.substring(1).toLowerCase();
+        return formattedValue;
+    }
 }

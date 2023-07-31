@@ -5,6 +5,26 @@ $(document).ready(function () {
     $('#parking').DataTable();
 });
 
+function openModal(car) {
+    const modal = document.getElementById('miModal');
+    modal.style.display = 'block';
+    document.getElementById('txtLicensePlate').value = car.licensePlate;
+    document.getElementById('txtModel').value = car.model;
+    document.getElementById('txtBrand').value = car.brand;
+    document.getElementById('txtProperty').value = car.property;
+    document.getElementById('txtOrigin').value = car.origin;
+    document.getElementById('txtDate').value = car.dateTime;
+    document.getElementById('txtRoom').value = car.room;
+    document.getElementById('txtCredit').value = car.credit;
+    document.getElementById('txtPay').value = car.pay;
+}
+
+// Función para cerrar el modal
+function closeModal() {
+    const modal = document.getElementById('miModal');
+    modal.style.display = 'none';
+}
+
 async function loadCars() {
     const request = await fetch('/api/cars', {
         method: 'GET',
@@ -23,10 +43,12 @@ async function loadCars() {
         }
         car.pay = (car.pay == null) ? 0 : car.pay;
         car.credit = (car.credit == null) ? 0 : car.credit;
-        let retireButton = '<a href="#" onClick="retireCar(\'' + car.licensePlate + '\')" class="btn btn-danger btclassNameNamecle btn-sm"><i class="fas fa-trash"></i> </a>';
-        let updateButton = '<a href="#" onClick="updateCar(\'' + car.licensePlate + '\')" class="btn btn-info btn-circle"><i class="fas fa-info-circle"></i></a>';
-        let carInformation = '<tr><td>' + car.model + '</td><td>' + car.brand + '</td><td>' + car.licensePlate + '</td><td>' + car.property + '</td><td>' + car.origin + '</td><td>' + car.dateTime + '</td><td>' + car.pay.toLocaleString('es-ES', option) + '</td><td>' + car.credit.toLocaleString('es-ES', option) + '</td><td>' + car.room + '</td><td>' + retireButton /*+updateButton*/ + '</td></tr>'
+        let retireButton = '<a href="#" onClick="retireCar(\'' + car.licensePlate + '\')" class="btn btn-danger btclassNameNamecle btn-sm"><i class="fas fa-trash" alt="Retirar Carro"></i> </a>';
+        let updateButton = '<a href="#" onclick="openModal({\'licensePlate\': \'' + car.licensePlate + '\', \'model\': \'' + car.model + '\', \'brand\': \'' + car.brand + '\', \'property\': \'' + car.property + '\', \'origin\': \'' + car.origin + '\', \'dateTime\': \'' + car.dateTime + '\', \'room\': \'' + car.room + '\', \'credit\': \'' + car.credit + '\', \'pay\': \'' + car.pay + '\'})" class="btn btn-info btn-sm"><i class="fas fa-info" alt="Actualizar carro"></i></a>';
+        let buttonsContainer = '<div class="buttons-container">' + retireButton + updateButton + '</div>';
+        let carInformation = '<tr><td>' + car.model + '</td><td>' + car.brand + '</td><td>' + car.licensePlate + '</td><td>' + car.property + '</td><td>' + car.origin + '</td><td>' + car.dateTime + '</td><td>' + car.pay.toLocaleString('es-ES', option) + '</td><td>' + car.credit.toLocaleString('es-ES', option) + '</td><td>' + car.room + '</td><td>' + buttonsContainer + '</td></tr>'
         carsData += carInformation;
+
     }
 
     document.querySelector('#parking tbody').outerHTML = carsData;

@@ -1,15 +1,3 @@
-.btn {
-    /* Estilo del botón */
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    cursor: pointer;
-}
 
 /* Estilos del modal */
 .modal {
@@ -43,3 +31,12 @@
     /*margin-right: -50px;
      */
 }
+
+.buttons-container {
+    display: flex;
+}
+
+.buttons-container a {
+    margin-right: 5px;
+}
+
