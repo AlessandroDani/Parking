@@ -119,17 +119,17 @@
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h5 class="m-0 font-weight-bold text-primary">Tabla de carros estacionados</h5>
-                            <button class="btn btn-success btn-icon-split" id="btnAbrirModal">Agregar nuevo carro</button>
-                            <div class="modal" id="miModal">
-                                <div class="modal-contenido">
+                            <button class="btn btn-success btn-icon-split" id="btnOpenModal">Agregar nuevo carro</button>
+                            <div class="modal" id="myModal">
+                                <div class="modal-content">
                                     <div class="row justify-content-center">
                                         <div class="col-xl-10 col-lg-12 col-md-9">
-                                                <div class="card-body p-0">
+                                                <div class="card-table p-0">
                                                     <!-- Nested Row within Card Body -->
                                                     <div class="row">
                                                         <div class="col-lg-6">
                                                             <div class="p-5">
-                                                                <span class="cerrar" id="btnCerrarModal">x</span>
+                                                                <span class="close" id="btnCloseModal">x</span>
                                                                 <div class="text-center">
                                                                     <h1 class="h4 text-gray-900 mb-4">Ingrese los datos</h1>
                                                                 </div>
@@ -181,7 +181,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body-index">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="parking" width="100%" cellspacing="0">
                                     <thead>
@@ -257,16 +257,16 @@
     <!-- Page level custom scripts -->
 
     <script>
-        const btnAbrirModal = document.getElementById('btnAbrirModal');
-        const btnCerrarModal = document.getElementById('btnCerrarModal');
-        const miModal = document.getElementById('miModal');
+        const btnOpenModal = document.getElementById('btnOpenModal');
+        const btnCloseModal = document.getElementById('btnCloseModal');
+        const myModal = document.getElementById('myModal');
 
-        btnAbrirModal.addEventListener('click', () => {
-            miModal.style.display = 'block';
+        btnOpenModal.addEventListener('click', () => {
+            myModal.style.display = 'block';
         });
 
-        btnCerrarModal.addEventListener('click', () => {
-            miModal.style.display = 'none';
+        btnCloseModal.addEventListener('click', () => {
+            myModal.style.display = 'none';
         });
     </script>
 
