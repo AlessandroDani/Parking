@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Register</title>
+    <title>Registrar</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -19,6 +19,7 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
 
 </head>
 
@@ -39,11 +40,11 @@
                             <form class="user">
                                 <div class="form-group row2 ">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user" id="txtNombre"
+                                        <input type="text" class="form-control form-control-user" id="txtName"
                                             placeholder="Nombre">
                                     </div>
                                     <div class="col-sm-6">
-                                        <input type="text" class="form-control form-control-user" id="txtApellido"
+                                        <input type="text" class="form-control form-control-user" id="txtLastName"
                                             placeholder="Apellido">
                                     </div>
                                 </div>
@@ -56,14 +57,14 @@
                                 <div class="form-group row2">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <input type="password" class="form-control form-control-user"
-                                            id="txtContraseña" placeholder="Contraseña">
+                                            id="txtPassword" placeholder="Contraseña">
                                     </div>
                                     <div class="col-sm-6">
                                         <input type="password" class="form-control form-control-user"
-                                            id="txtRepetirContraseña" placeholder="Repetir contraseña">
+                                            id="txtRepeatPassword" placeholder="Repetir contraseña">
                                     </div>
                                 </div>
-                                <a onclick="registrar()" href="#" class="btn btn-primary btn-user btn-block">
+                                <a onclick="signUp()" href="#" class="btn btn-primary btn-user btn-block">
                                     Registrate
                                 </a>
                             </form>
@@ -88,7 +89,7 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
-    <script src="js/register.js"></script>
+    <script src="js/signupUser.js"></script>
 
 
 </body>

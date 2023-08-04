@@ -1,8 +1,6 @@
 package com.parking.dao;
 
 import com.parking.models.Car;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public interface CarDao {
