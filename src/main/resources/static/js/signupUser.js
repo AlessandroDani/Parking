@@ -17,7 +17,7 @@ async function signUp() {
         return;
     }
 
-    const request = await fetch('api/user', {
+    const request = await fetch('/api/user', {
         method: 'POST',
         headers: {
             'Accept': 'application/json',

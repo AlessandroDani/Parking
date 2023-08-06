@@ -7,9 +7,7 @@ async function login() {
     data.email = document.getElementById('txtEmail').value;
     data.password = document.getElementById('txtPassword').value;
 
-    console.log(data.email)
-    console.log(data.password)
-
+    try{
     const request = await fetch('/api/login', {
         method: 'POST',
         headers: {
@@ -18,13 +16,13 @@ async function login() {
         },
         body: JSON.stringify(data)
     });
-    const answer = await request.text();
-    console.log(answer)
-
-    if(answer != null){
-        localStorage.token = answer;
-        //window.location.href = "index.html";
-    }else{
+    const answer = await request.json();
+        localStorage.token = answer.tokenJwt;
+        localStorage.id = answer.userId;
+        localStorage.name = answer.name;
+        localStorage.lastName = answer.lastName;
+        window.location.href = "index.html";
+    }catch (e) {
         alert("Las credenciales son incorrectas");
     }
 

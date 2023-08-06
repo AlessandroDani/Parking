@@ -1,12 +1,10 @@
 package com.parking.models;
 
-import com.parking.controller.CarTableService;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 @Entity
-@EntityListeners(CarTableService.class)
 @Data
 @Table(name = "users")
 public class User {
@@ -18,6 +16,9 @@ public class User {
 
     @Column(name = "name")
     private String name;
+
+    @Column(name = "last_name")
+    private String lastName;
 
     @Column(name = "password")
     private String password;

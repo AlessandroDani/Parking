@@ -10,13 +10,9 @@ import lombok.*;
 @NoArgsConstructor
 public class Car {
 
-    /*
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
-     */
+    @Column(name = "id_user")
+    private Long id_user;
 
     @Id
     @Column(name = "license_plate")

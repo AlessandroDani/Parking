@@ -6,10 +6,12 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="Es una aplicación web que permite a los usuarios gestionar el estacionamiento de vehículos de manera eficiente. Los usuarios pueden registrar sus vehículos, obtener información detallada sobre cada automóvil y realizar operaciones como ingreso, salida y pagos. Además, el programa ofrece características de autenticación segura para proteger los datos de los usuarios y garantizar una experiencia de estacionamiento sin problemas. ¡Administre su parking de manera efectiva con nuestra intuitiva y práctica solución en línea!">
+    <meta name="author" content="Alessandro Daniele">
 
     <title>Parking</title>
+
+    <link rel="icon" href="img/logo.png" type="image/x-icon">
 
     <!-- Custom fonts for this template -->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -81,25 +83,16 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Alessandro Daniele</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="username"></span>
                                 <img class="img-profile rounded-circle"
                                     src="img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Settings
-                                </a>
-                                <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
+                                    Cerrar Sesión
                                 </a>
                             </div>
                         </li>
@@ -219,22 +212,18 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-
     <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modalSesion fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">¿Listo para salir?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
                 </div>
                 <div class="modal-body">Seleccione cerrar sesión</div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <button onclick="location.reload()" class="btn btn-secondary">Cancelar</button>
+                    <a class="btn btn-primary" href="login.html">Cerrar sesión</a>
                 </div>
             </div>
         </div>
@@ -247,8 +236,6 @@
     <!-- Core plugin JavaScript-->
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-    <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
     <script src="vendor/datatables/jquery.dataTables.min.js"></script>
@@ -263,6 +250,15 @@
 
         btnOpenModal.addEventListener('click', () => {
             myModal.style.display = 'block';
+            document.getElementById('txtLicensePlate').value = "";
+            document.getElementById('txtModel').value = "";
+            document.getElementById('txtBrand').value = "";
+            document.getElementById('txtProperty').value = "";
+            document.getElementById('txtOrigin').value = "";
+            document.getElementById('txtDate').value = "";
+            document.getElementById('txtRoom').value = "";
+            document.getElementById('txtCredit').value = "";
+            document.getElementById('txtPay').value = "";
         });
 
         btnCloseModal.addEventListener('click', () => {

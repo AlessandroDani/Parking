@@ -17,7 +17,9 @@ async function registerCar() {
     dates.active = true;
     dates.room = document.getElementById('txtRoom').value;
 
-    const request = await fetch('/api/car', {
+    const id = localStorage.getItem('id');
+
+    const request = await fetch('/api/car/' + id, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',

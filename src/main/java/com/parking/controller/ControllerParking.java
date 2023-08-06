@@ -13,9 +13,9 @@ public class ControllerParking {
     @Autowired
     private CarDao carDao;
 
-    @GetMapping(value = "/api/cars")
-    public List<Car> carList(){
-        return carDao.getCars();
+    @GetMapping(value = "/api/cars/{id}")
+    public List<Car> carList(@PathVariable long id){
+        return carDao.getCars(id);
     }
 
     /*
@@ -26,8 +26,9 @@ public class ControllerParking {
 
      */
 
-    @PostMapping(value = "/api/car")
-    public void insertCar(@RequestBody Car car){
+    @PostMapping(value = "/api/car/{id}")
+    public void insertCar(@RequestBody Car car, @PathVariable long id){
+        car.setId_user(id);
         carDao.insertCar(car);
     }
 
@@ -37,8 +38,8 @@ public class ControllerParking {
         carDao.updateCar(licensePlate);
     }
 
-    @GetMapping(value = "/api/car/{licensePlate}")
-    public Car getCar(@PathVariable String licensePlate){
-        return carDao.getCar(licensePlate);
+    @GetMapping(value = "/api/car/{id}/{licensePlate}")
+    public Car getCar(@PathVariable long id, @PathVariable String licensePlate){
+        return carDao.getCar(licensePlate, id);
     }
 }

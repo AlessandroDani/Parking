@@ -6,7 +6,7 @@ $(document).ready(function () {
 });
 
 function openModal(car) {
-    const modal = document.getElementById('miModal');
+    const modal = document.getElementById('myModal');
     modal.style.display = 'block';
     document.getElementById('txtLicensePlate').value = car.licensePlate;
     document.getElementById('txtModel').value = car.model;
@@ -19,20 +19,24 @@ function openModal(car) {
     document.getElementById('txtPay').value = car.pay;
 }
 
-// Función para cerrar el modal
 function closeModal() {
-    const modal = document.getElementById('miModal');
+    const modal = document.getElementById('myModal');
     modal.style.display = 'none';
+
+
 }
 
 async function loadCars() {
-    const request = await fetch('/api/cars', {
+    const id = localStorage.getItem('id');
+    const request = await fetch('/api/cars/' + id , {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
     });
+    document.getElementById('username').innerText = localStorage.getItem('name') + ' ' + localStorage.getItem('lastName');
+
     const carList = await request.json();
     let option = {useGrouping: true};
 
@@ -56,7 +60,6 @@ async function loadCars() {
 
 async function retireCar(licensePlate) {
     const carInfo = await getCar(licensePlate);
-
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
             confirmButton: 'btn btn-success',
@@ -109,9 +112,11 @@ async function retireCar(licensePlate) {
     })
 }
 
+
 async function getCar(licensePlate) {
+    const id = localStorage.getItem('id');
     try {
-        const response = await fetch('/api/car/' + encodeURIComponent(licensePlate), {
+        const response = await fetch('/api/car/' + id + '/'+encodeURIComponent(licensePlate), {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',

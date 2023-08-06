@@ -29,15 +29,19 @@ public class CarServices implements CarDao{
 
     @Override
     @Transactional
-    public List<Car> getCars() {
-        String query = "FROM Car WHERE active  = true";
-        return entityManager.createQuery(query).getResultList();
+    public List<Car> getCars(long id_user) {
+        String query = "FROM Car WHERE active = true AND id_user =: id_user";
+        return entityManager.createQuery(query).setParameter("id_user", id_user).getResultList();
     }
 
     @Override
-    public Car getCar(String licensePlate) {
+    public Car getCar(String licensePlate, long id) {
         try{
-            return entityManager.find(Car.class, licensePlate);
+            Car car = entityManager.find(Car.class, licensePlate);
+            if(car.getId_user() == id){
+                return car;
+            }
+            return null;
         }catch (Exception e){
             return null;
         }
