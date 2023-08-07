@@ -1,7 +1,7 @@
 
 /* Estilos del modal */
 .modal {
-    display: flex;
+    display: none;
     position: fixed;
     z-index: 1;
     left: 0;
@@ -30,7 +30,7 @@
     padding: 5px;
     cursor: pointer;
     border: none;
-    margin-right: -50px;
+    margin-right: -40px;
 }
 
 .buttons-container {
