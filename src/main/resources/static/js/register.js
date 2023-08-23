@@ -12,6 +12,7 @@ async function registerCar() {
 
     //When dateTime is saved in modal, its one day after, for that, the code set 24 hours
     dates.dateTime = new Date(document.getElementById('txtDate').value).setHours(24);
+
     dates.pay = cleanData('txtPay');
     dates.credit = cleanData('txtCredit');
     dates.active = true;

@@ -113,7 +113,7 @@
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                         <h5 class="m-0 font-weight-bold text-primary">Tabla de carros estacionados</h5>
-                        <button class="btn btn-success btn-icon-split" id="btnOpenModal">Agregar nuevo carro</button>
+                        <button type="button" onclick="openModal()" class="btn btn-success btn-icon-split" id="btnOpenModal">Agregar nuevo carro</button>
                         <div class="modal" id="myModal">
                             <div class="modal-content">
                                 <div class="row justify-content-center">
@@ -124,7 +124,7 @@
                                                 <div class="p-5">
                                                     <div class="text-center">
                                                         <h1 class="h4 text-gray-900 mb-4">Ingrese los datos</h1>
-                                                        <span class="closeButton" id="btnCloseModal">x</span>
+                                                        <span class="closeButton" onclick="closeModal()">x</span>
                                                     </div>
                                                     <form class="user" id="form">
                                                         <div class="form-group">
@@ -217,8 +217,7 @@
     <i class="fas fa-angle-up"></i>
 </a>
 <!-- Logout Modal-->
-<div class="modalSesion fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
+<div class="modalSesion fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -247,77 +246,12 @@
 
 <!-- Page level custom scripts -->
 
-<script>
-    const btnOpenModal = document.getElementById('btnOpenModal');
-    const btnCloseModal = document.getElementById('btnCloseModal');
-    const myModal = document.getElementById('myModal');
-
-    btnOpenModal.addEventListener('click', () => {
-        myModal.style.display = 'block';
-        document.getElementById('txtLicensePlate').value = "";
-        document.getElementById('txtModel').value = "";
-        document.getElementById('txtBrand').value = "";
-        document.getElementById('txtProperty').value = "";
-        document.getElementById('txtOrigin').value = "";
-        document.getElementById('txtDate').value = "";
-        document.getElementById('txtRoom').value = "";
-        document.getElementById('txtCredit').value = "";
-        document.getElementById('txtPay').value = "";
-    });
-
-    btnCloseModal.addEventListener('click', () => {
-        myModal.style.display = 'none';
-    });
-</script>
-
-<script>
-    function actualDate() {
-        const today = new Date();
-        const year = today.getFullYear();
-        const month = String(today.getMonth() + 1).padStart(2, '0');
-        const day = String(today.getDate()).padStart(2, '0');
-
-        return `${year}-${month}-${day}`;
-    }
-
-    document.getElementById('txtDate').value = actualDate();
-</script>
-
-<script>
-    function checkDisable() {
-        let roomAvailable = document.getElementById('txtRoom').value;
-        if (roomAvailable.trim().length > 2) {
-            document.getElementById('txtPay').disabled = true;
-            document.getElementById('txtCredit').disabled = true;
-        } else {
-            document.getElementById('txtPay').disabled = false;
-            document.getElementById('txtCredit').disabled = false;
-        }
-    }
-</script>
-
-<script>
-    const element = document.getElementById('txtLicensePlate');
-    element.addEventListener('blur', async () => {
-        const licensePlate = encodeURIComponent(element.value);
-        try {
-            const carInfo = await getCar(licensePlate);
-            document.getElementById('txtModel').value = carInfo.model;
-            document.getElementById('txtBrand').value = carInfo.brand;
-            document.getElementById('txtProperty').value = carInfo.property;
-            document.getElementById('txtOrigin').value = carInfo.origin;
-        } catch (e) {
-            document.getElementById('txtModel').value = '';
-            document.getElementById('txtBrand').value = '';
-            document.getElementById('txtProperty').value = '';
-            document.getElementById('txtOrigin').value = '';
-        }
-    })
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="js/alerts.js"></script>
 <script src="js/register.js"></script>
 <script src="js/parking.js"></script>
+<script src="js/modal.js"></script>
+<script src="js/modal-autocomplete.js"></script>
+
 </body>
 
 </html>

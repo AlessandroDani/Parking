@@ -5,6 +5,7 @@ $(document).ready(function () {
     $('#parking').DataTable();
 });
 
+/*
 function openModal(car) {
     const modal = document.getElementById('myModal');
     modal.style.display = 'block';
@@ -19,12 +20,7 @@ function openModal(car) {
     document.getElementById('txtPay').value = car.pay;
 }
 
-function closeModal() {
-    const modal = document.getElementById('myModal');
-    modal.style.display = 'none';
-
-
-}
+ */
 
 async function loadCars() {
     const id = localStorage.getItem('id');
@@ -58,8 +54,6 @@ async function loadCars() {
 }
 
 async function retireCar(carInfo) {
-    //const carInfo = await getCar(licensePlate);
-    if (navigator.onLine) {
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
                 confirmButton: 'btn btn-success',
@@ -81,31 +75,9 @@ async function retireCar(carInfo) {
                 carInfo.credit = (carInfo.credit == null) ? 0 : carInfo.credit;
                 carInfo.active = false;
 
-                const message = await carRetireData(carInfo)
-                /*
-                carInfo.pay = (carInfo.pay == null) ? 0 : carInfo.pay;
-                carInfo.credit = (carInfo.credit == null) ? 0 : carInfo.credit;
+                const message = await carRetireData(carInfo);
 
-                let option = {useGrouping: true};
-
-                let dateCar = new Date(carInfo.dateTime)
-                dateCar.setHours(24)
-                let actualDate = new Date()
-
-                const difference = actualDate - dateCar;
-
-                let days = Math.floor(difference / (1000 * 60 * 60 * 24));
-                days = (days === 0) ? 1 : days;
-
-                const price = ((carInfo.pay * days) - carInfo.credit).toLocaleString('es-ES', option);
-                const stringDay = (days === 1) ? ' dia' : ' dias';
-
-                const credit = (carInfo.credit === 0) ? '' : ' abonó ' + carInfo.credit.toLocaleString('es-ES', option);
-
-                carInfo.active = false;
-
-                 */
-
+                
                 await swalWithBootstrapButtons.fire({
                         icon: 'success',
                         title: 'Retirado',
@@ -122,14 +94,14 @@ async function retireCar(carInfo) {
                 )
             }
         })
-    } else {
-        confirmWithdrawCar(carInfo)
-    }
 }
 
 
 async function getCar(licensePlate) {
     const id = localStorage.getItem('id');
+    if(licensePlate===''){
+        return null;
+    }
     try {
         const response = await fetch('/api/car/' + id + '/' + encodeURIComponent(licensePlate), {
             method: 'GET',
@@ -163,16 +135,10 @@ async function updateCar(carInfo) {
         const deleteCars = JSON.parse(localStorage.getItem('deleteCars')) || [];
         deleteCars.push(carInfo);
         localStorage.setItem('deleteCars', JSON.stringify(deleteCars));
-        alert('El carro ha sido retirado localmente. Se enviará los datos cuando haya conexión a internet');
-    }
-}
-
-async function confirmWithdrawCar(carInfo) {
-    const result = confirm("¿Seguro que quieres retirar el carro?");
-    if (result === true) {
-        const message = await carRetireData(carInfo);
-        await updateCar(carInfo);
-        alert(message)
+        swal.fire({
+            message: 'El carro ha sido retirado localmente. Se enviará los datos cuando haya conexión a internet'
+        })
+        //alert('El carro ha sido retirado localmente. Se enviará los datos cuando haya conexión a internet');
     }
 }
 
@@ -194,7 +160,8 @@ async function carRetireData(carInfo) {
     const price = ((carInfo.pay * days) - carInfo.credit).toLocaleString('es-ES', option);
     const stringDay = (days === 1) ? ' dia' : ' dias';
 
-    const credit = (carInfo.credit === 0) ? '' : ' abonó ' + carInfo.credit.toLocaleString('es-ES', option);
+    console.log(carInfo.credit)
+    const credit = (carInfo.credit == 0) ? '' : ' abonó ' + carInfo.credit.toLocaleString('es-ES', option);
 
     carInfo.active = false;
     return 'El carro ' + carInfo.brand + ' ' + carInfo.model + ' estuvo  ' + days + stringDay + credit + '  y debe ' + price + '$';
