@@ -1,9 +1,9 @@
 
-function openModal(car = null) {
+async function openModal(car = null) {
     const myModal = document.getElementById('myModal');
     myModal.style.display = 'block';
 
-    if(car){
+    if (car) {
         document.getElementById('txtLicensePlate').value = car.licensePlate;
         document.getElementById('txtModel').value = car.model;
         document.getElementById('txtBrand').value = car.brand;
@@ -13,13 +13,13 @@ function openModal(car = null) {
         document.getElementById('txtRoom').value = car.room;
         document.getElementById('txtCredit').value = car.credit;
         document.getElementById('txtPay').value = car.pay;
-    }else {
+    } else {
         document.getElementById('txtLicensePlate').value = "";
         document.getElementById('txtModel').value = "";
         document.getElementById('txtBrand').value = "";
         document.getElementById('txtProperty').value = "";
         document.getElementById('txtOrigin').value = "";
-        document.getElementById('txtDate').value = actualDate();
+        document.getElementById('txtDate').value = await actualDate();
         document.getElementById('txtRoom').value = "";
         document.getElementById('txtCredit').value = "";
         document.getElementById('txtPay').value = "";
@@ -41,8 +41,13 @@ async function checkDisable() {
     }
 }
 
-async function actualDate() {
-    const today = new Date();
+async function actualDate(date = null) {
+    let today = null;
+    if(date == null) {
+        today = new Date();
+    }else{
+        today = date;
+    }
     const year = today.getFullYear();
     const month = String(today.getMonth() + 1).padStart(2, '0');
     const day = String(today.getDate()).padStart(2, '0');

@@ -2,7 +2,7 @@
 $(document).ready(function () {
 });
 
-async function login() {
+async function loginUser() {
     let data = {};
     data.email = document.getElementById('txtEmail').value;
     data.password = document.getElementById('txtPassword').value;

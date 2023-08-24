@@ -5,23 +5,6 @@ $(document).ready(function () {
     $('#parking').DataTable();
 });
 
-/*
-function openModal(car) {
-    const modal = document.getElementById('myModal');
-    modal.style.display = 'block';
-    document.getElementById('txtLicensePlate').value = car.licensePlate;
-    document.getElementById('txtModel').value = car.model;
-    document.getElementById('txtBrand').value = car.brand;
-    document.getElementById('txtProperty').value = car.property;
-    document.getElementById('txtOrigin').value = car.origin;
-    document.getElementById('txtDate').value = car.dateTime;
-    document.getElementById('txtRoom').value = car.room;
-    document.getElementById('txtCredit').value = car.credit;
-    document.getElementById('txtPay').value = car.pay;
-}
-
- */
-
 async function loadCars() {
     const id = localStorage.getItem('id');
     const request = await fetch('/api/cars/' + id, {
@@ -77,7 +60,6 @@ async function retireCar(carInfo) {
 
                 const message = await carRetireData(carInfo);
 
-                
                 await swalWithBootstrapButtons.fire({
                         icon: 'success',
                         title: 'Retirado',
@@ -135,10 +117,17 @@ async function updateCar(carInfo) {
         const deleteCars = JSON.parse(localStorage.getItem('deleteCars')) || [];
         deleteCars.push(carInfo);
         localStorage.setItem('deleteCars', JSON.stringify(deleteCars));
-        swal.fire({
-            message: 'El carro ha sido retirado localmente. Se enviará los datos cuando haya conexión a internet'
-        })
-        //alert('El carro ha sido retirado localmente. Se enviará los datos cuando haya conexión a internet');
+        const tableBody = document.querySelector('#parking tbody');
+        const retireCar = carInfo.licensePlate;
+        const rows = tableBody.querySelectorAll('tr');
+
+        rows.forEach(row => {
+            const cell = row.querySelector('td:nth-child(3)');
+            if (cell && cell.textContent === retireCar) {
+                row.remove();
+            }
+        });
+
     }
 }
 
@@ -175,7 +164,7 @@ function checkOnlineStatus() {
                 await updateCar(carInfo);
             });
             localStorage.removeItem('deleteCars');
-            alert('Los carros retirados localmente han sido enviados al servidor.');
+            alert('Los carros retirados localmente han sido enviados al servidor');
         }
     }
 }

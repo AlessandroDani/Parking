@@ -26,6 +26,6 @@ async function signUp() {
         body: JSON.stringify(data)
     });
     alert("La cuenta fue creada con exito!");
-    window.location.href = 'login.html'
+    window.location.href = 'loginUser.html'
 
 }

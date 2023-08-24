@@ -10,8 +10,9 @@ async function registerCar() {
     dates.property = formatFirstLetterToUpperCase(document.getElementById('txtProperty').value);
     dates.origin = formatFirstLetterToUpperCase(document.getElementById('txtOrigin').value);
 
-    //When dateTime is saved in modal, its one day after, for that, the code set 24 hours
-    dates.dateTime = new Date(document.getElementById('txtDate').value).setHours(24);
+    //When dateTime is saved in modal, it's one day before, for that reason, setDate + 1 day
+    dates.dateTime = new Date(document.getElementById('txtDate').value);
+    dates.dateTime.setDate(dates.dateTime.getDate()+1);
 
     dates.pay = cleanData('txtPay');
     dates.credit = cleanData('txtCredit');
@@ -20,8 +21,18 @@ async function registerCar() {
 
     await saveCar(dates);
 }
-async function saveCar(dates){
+async function saveCar(dates) {
     const id = localStorage.getItem('id');
+
+    await Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'El carro se ha registrado correctamente',
+        timer: 1500,
+        showConfirmButton: false,
+        closeOnClickOutside: false
+    })
+
     if (navigator.onLine) {
         const request = await fetch('/api/car/' + id, {
             method: 'POST',
@@ -31,26 +42,17 @@ async function saveCar(dates){
             },
             body: JSON.stringify(dates)
         })
-
-        await Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'El carro se ha registrado correctamente',
-            timer: 1500,
-            showConfirmButton: false,
-            closeOnClickOutside: false
-        })
-        location.reload()
-    }else{
+        location.reload();
+    } else {
         const savedCars = JSON.parse(localStorage.getItem('savedCars')) || [];
         savedCars.push(dates);
         localStorage.setItem('savedCars', JSON.stringify(savedCars));
-        alert('El carro ha sido guardado localmente. Se enviará los datos cuando haya conexión a internet');
+        //alert('El carro ha sido guardado localmente. Se enviará los datos cuando haya conexión a internet');
         let option = {useGrouping: true};
         let retireButton = '<a href="#" onClick="retireCar({\'licensePlate\': \'' + dates.licensePlate + '\', \'model\': \'' + dates.model + '\', \'brand\': \'' + dates.brand + '\', \'property\': \'' + dates.property + '\', \'origin\': \'' + dates.origin + '\', \'dateTime\': \'' + dates.dateTime + '\', \'room\': \'' + dates.room + '\', \'credit\': \'' + dates.credit + '\', \'pay\': \'' + dates.pay + '\'})" class="btn btn-danger btclassNameNamecle btn-sm"><i class="fas fa-trash" alt="Retirar Carro"></i> </a>';
         let updateButton = '<a href="#" onclick="openModal({\'licensePlate\': \'' + dates.licensePlate + '\', \'model\': \'' + dates.model + '\', \'brand\': \'' + dates.brand + '\', \'property\': \'' + dates.property + '\', \'origin\': \'' + dates.origin + '\', \'dateTime\': \'' + dates.dateTime + '\', \'room\': \'' + dates.room + '\', \'credit\': \'' + dates.credit + '\', \'pay\': \'' + dates.pay + '\'})" class="btn btn-info btn-sm"><i class="fas fa-info" alt="Actualizar carro"></i></a>';
         let buttonsContainer = '<div class="buttons-container">' + retireButton + updateButton + '</div>';
-        const carInformation = `<tr><td>${dates.model}</td><td>${dates.brand}</td><td>${dates.licensePlate}</td><td>${dates.property}</td><td>${dates.origin}</td><td>${dates.dateTime}</td><td>${dates.pay.toLocaleString('es-ES', option)}</td><td>${dates.credit.toLocaleString('es-ES', option)}</td><td>${dates.room}</td><td>${buttonsContainer}</td></tr>`;
+        const carInformation = `<tr><td>${dates.model}</td><td>${dates.brand}</td><td>${dates.licensePlate}</td><td>${dates.property}</td><td>${dates.origin}</td><td>${await actualDate(dates.dateTime)}</td><td>${dates.pay.toLocaleString('es-ES', option)}</td><td>${dates.credit.toLocaleString('es-ES', option)}</td><td>${dates.room}</td><td>${buttonsContainer}</td></tr>`;
         const tableBody = document.querySelector('#parking tbody');
         tableBody.insertAdjacentHTML('beforeend', carInformation);
     }
