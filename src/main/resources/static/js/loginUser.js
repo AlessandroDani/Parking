@@ -21,7 +21,7 @@ async function loginUser() {
         localStorage.id = answer.userId;
         localStorage.name = answer.name;
         localStorage.lastName = answer.lastName;
-        window.location.href = "index.html";
+        window.location.href = "home.html";
     }catch (e) {
         alert("Las credenciales son incorrectas");
     }
