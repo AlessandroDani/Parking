@@ -14,10 +14,6 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - publish: $(System.DefaultWorkingDirectory)/bin/WebApp
-        artifact: WebApp
-      - uses: actions/checkout@v2
-
       - name: Set up Java version
         uses: actions/setup-java@v1
         with:
