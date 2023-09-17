@@ -14,7 +14,7 @@ jobs:
     runs-on: windows-latest
     defaults:
       run:
-        working-directory: 'D:\a\Parking\Parking\src'
+        working-directory: 'D:\a\Parking'
 
     steps:
       - uses: actions/checkout@v2
