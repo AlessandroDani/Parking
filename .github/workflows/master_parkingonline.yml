@@ -43,6 +43,12 @@ jobs:
         with:
           name: java-app
 
+      - name: Download build files
+        uses: actions/download-artifact@v3
+        with:
+          path: .pio/build/MCU4M-PROD/
+          name: firmware.bin
+
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
