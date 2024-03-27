@@ -1,7 +1,3 @@
-// Call the dataTables jQuery plugin
-$(document).ready(function () {
-});
-
 async function registerCar() {
     let dates = {};
     dates.licensePlate = document.getElementById('txtLicensePlate').value;

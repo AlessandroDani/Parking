@@ -1,8 +1,3 @@
-$(document).ready(function() {
-    // on ready
-});
-
-
 async function signUp() {
     let data = {};
     data.name = document.getElementById('txtName').value;
@@ -17,7 +12,7 @@ async function signUp() {
         return;
     }
 
-    const request = await fetch('/api/user', {
+    await fetch('/api/user', {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -26,6 +21,5 @@ async function signUp() {
         body: JSON.stringify(data)
     });
     alert("La cuenta fue creada con exito!");
-    window.location.href = 'loginUser.html'
-
+    window.location.href = 'login.html'
 }
