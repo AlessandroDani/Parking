@@ -26,6 +26,7 @@ async function loadCars() {
         }
         car.pay = (car.pay == null) ? 0 : car.pay;
         car.credit = (car.credit == null) ? 0 : car.credit;
+        
         let retireButton = '<a href="#" onClick="retireCar({\'licensePlate\': \'' + car.licensePlate + '\', \'model\': \'' + car.model + '\', \'brand\': \'' + car.brand + '\', \'property\': \'' + car.property + '\', \'origin\': \'' + car.origin + '\', \'dateTime\': \'' + car.dateTime + '\', \'room\': \'' + car.room + '\', \'credit\': \'' + car.credit + '\', \'pay\': \'' + car.pay + '\'})" class="btn btn-danger btclassNameNamecle btn-sm"><i class="fas fa-trash" alt="Retirar Carro"></i> </a>';
         let updateButton = '<a href="#" onclick="openModal({\'licensePlate\': \'' + car.licensePlate + '\', \'model\': \'' + car.model + '\', \'brand\': \'' + car.brand + '\', \'property\': \'' + car.property + '\', \'origin\': \'' + car.origin + '\', \'dateTime\': \'' + car.dateTime + '\', \'room\': \'' + car.room + '\', \'credit\': \'' + car.credit + '\', \'pay\': \'' + car.pay + '\'})" class="btn btn-info btn-sm"><i class="fas fa-info" alt="Actualizar carro"></i></a>';
         let buttonsContainer = '<div class="buttons-container">' + retireButton + updateButton + '</div>';
@@ -56,6 +57,7 @@ async function retireCar(carInfo) {
             if (result.isConfirmed) {
                 carInfo.pay = (carInfo.pay == null) ? 0 : carInfo.pay;
                 carInfo.credit = (carInfo.credit == null) ? 0 : carInfo.credit;
+
                 carInfo.active = false;
 
                 const message = await carRetireData(carInfo);
@@ -117,6 +119,7 @@ async function updateCar(carInfo) {
         const deleteCars = JSON.parse(localStorage.getItem('deleteCars')) || [];
         deleteCars.push(carInfo);
         localStorage.setItem('deleteCars', JSON.stringify(deleteCars));
+
         const tableBody = document.querySelector('#parking tbody');
         const retireCar = carInfo.licensePlate;
         const rows = tableBody.querySelectorAll('tr');
@@ -132,14 +135,15 @@ async function updateCar(carInfo) {
 }
 
 async function carRetireData(carInfo) {
+    console.log('partimos de aca' , carInfo);
     carInfo.pay = (carInfo.pay == null) ? 0 : carInfo.pay;
     carInfo.credit = (carInfo.credit == null) ? 0 : carInfo.credit;
 
     let option = {useGrouping: true};
 
-    let dateCar = new Date(carInfo.dateTime)
-    dateCar.setHours(24)
-    let actualDate = new Date()
+    let dateCar = new Date(carInfo.dateTime);
+    if(navigator.onLine) dateCar.setHours(24);
+    let actualDate = new Date();
 
     const difference = actualDate - dateCar;
 
@@ -149,7 +153,6 @@ async function carRetireData(carInfo) {
     const price = ((carInfo.pay * days) - carInfo.credit).toLocaleString('es-ES', option);
     const stringDay = (days === 1) ? ' dia' : ' dias';
 
-    console.log(carInfo.credit)
     const credit = (carInfo.credit == 0) ? '' : ' abonó ' + carInfo.credit.toLocaleString('es-ES', option);
 
     carInfo.active = false;

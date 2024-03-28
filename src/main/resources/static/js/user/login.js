@@ -1,7 +1,10 @@
+/**
+ * login the users
+ */
 async function loginUser() {
-    let data = {};
-    data.email = document.getElementById('txtEmail').value;
-    data.password = document.getElementById('txtPassword').value;
+    let user = {};
+    user.email = document.getElementById('txtEmail').value;
+    user.password = document.getElementById('txtPassword').value;
 
     try{
         const request = await fetch('/api/login', {
@@ -10,8 +13,12 @@ async function loginUser() {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify(user)
         });
+        /**
+         * localStorage is used for put name and lastName in profile section
+         * also token and id is saved for future request.
+         */
         const answer = await request.json();
             localStorage.token = answer.tokenJwt;
             localStorage.id = answer.userId;
